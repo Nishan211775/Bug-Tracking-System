@@ -73,8 +73,21 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\Assign.cs" />
+    <Compile Include="Model\Bug.cs" />
+    <Compile Include="Model\BugHistory.cs" />
+    <Compile Include="Model\BugInformation.cs" />
+    <Compile Include="Model\Code.cs" />
+    <Compile Include="Model\Fixer.cs" />
+    <Compile Include="Model\Image.cs" />
+    <Compile Include="Model\Programmer.cs" />
+    <Compile Include="Model\SourceControl.cs" />
+    <Compile Include="Model\Tester.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -110,5 +123,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
