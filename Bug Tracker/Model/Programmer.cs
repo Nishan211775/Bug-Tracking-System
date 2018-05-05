@@ -11,7 +11,7 @@ namespace Bug_Tracker.Model
     /// </summary>
     class Programmer
     {
-        public int ProgrammerId { get; set; }
+        public int? ProgrammerId { get; set; }
         public string FullName { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
