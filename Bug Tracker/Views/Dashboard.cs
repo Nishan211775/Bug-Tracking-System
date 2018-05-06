@@ -35,5 +35,16 @@ namespace Bug_Tracker.Views
         {
             
         }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void logoutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Dispose();
+            new Login().Show();
+        }
     }
 }

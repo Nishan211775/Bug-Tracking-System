@@ -83,7 +83,7 @@ namespace Bug_Tracker.DAO
                 {
                     return true;
                 }
-                trans.Commit();
+                //trans.Commit();
             } catch(SqlException ex)
             {
                 trans.Rollback();

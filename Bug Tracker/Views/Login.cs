@@ -44,7 +44,8 @@ namespace Bug_Tracker.Views
                 {
                     if (new ProgrammerDAO().IsLogin(username, password))
                     {
-                        MessageBox.Show("Logged in");
+                        this.Hide();
+                        new Main().Show();
                     } else
                     {
                         MessageBox.Show("Invalid username or password");
@@ -54,7 +55,8 @@ namespace Bug_Tracker.Views
                 {
                     if (new TesterDAO().IsLogin(username, password))
                     {
-                        MessageBox.Show("Logged in");
+                        this.Hide();
+                        new Main().Show();
                     }
                     else
                     {
