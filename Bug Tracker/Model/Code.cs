@@ -15,5 +15,6 @@ namespace Bug_Tracker.Model
         public string CodeFilePath { get; set; }
         public string CodeFileName { get; set; }
         public string ProgrammingLanguage { get; set; }
+        public int BugId { get; set; }
     }
 }

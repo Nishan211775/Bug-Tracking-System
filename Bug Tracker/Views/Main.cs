@@ -1,12 +1,16 @@
-﻿using System;
+﻿using Bug_Tracker.DAO;
+using Bug_Tracker.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
 
 namespace Bug_Tracker.Views
 {
@@ -14,7 +18,9 @@ namespace Bug_Tracker.Views
     {
         private int childFormNumber = 0;
         private string programminLanguage;
-
+        private string imageName;
+        private string ImageName;
+        private string imageSource;
         public Main()
         {
             this.StartPosition = FormStartPosition.CenterScreen;
@@ -39,6 +45,8 @@ namespace Bug_Tracker.Views
             if (openFileDialog.ShowDialog(this) == DialogResult.OK)
             {
                 string FileName = openFileDialog.FileName;
+                imageSource = Path.GetDirectoryName(FileName);
+                Console.WriteLine(imageSource);
             }
         }
 
@@ -189,10 +197,94 @@ namespace Bug_Tracker.Views
             openFileDialog.Filter = "Images|*.png;*.bmp;*.jpg";
             if (openFileDialog.ShowDialog(this) == DialogResult.OK)
             {
-                string FileName = openFileDialog.FileName;
-                pictureBox1.Image = new Bitmap(FileName);
+                imageName = openFileDialog.FileName;
+                ImageName = openFileDialog.SafeFileName;
+                pictureBox1.Image = new Bitmap(imageName);
                 pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //bug
+            Bug bug = new Bug
+            {
+                ProjectName = textBox1.Text,
+                ClassName = textBox2.Text,
+                MethodName = textBox3.Text,
+                StartLine = Convert.ToInt16(textBox4.Text),
+                EndLine = Convert.ToInt16(textBox5.Text),
+                ProgrammerId = Login.userId
+            };
+
+            try
+            {
+                BugDAO bugDao = new BugDAO();
+                bugDao.Insert(bug);
+            } catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            //image
+
+
+            string appPath = Path.GetDirectoryName(Application.ExecutablePath) + @"\code_image\";
+            Bug_Tracker.Model.Image image = new Bug_Tracker.Model.Image
+            {
+                ImagePath = "code_image",
+                ImageName = imageName,
+                BugId = bug.BugId
+            };
+
+            try
+            {
+                ImageDAO codeDao = new ImageDAO();
+                codeDao.Insert(image);
+
+                File.Copy(imageName, appPath + ImageName);
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            ////code
+            string c = fastColoredTextBox1.Text;
+            string codeFileName = DateTime.Now.Second.ToString();
+
+            Code code = new Code
+            {
+                CodeFilePath = "code",
+                CodeFileName = codeFileName,
+                ProgrammingLanguage = programminLanguage,
+                BugId = bug.BugId
+            };
+
+            try
+            {
+                CodeDAO codeDao = new CodeDAO();
+                codeDao.Insert(code);
+
+                string path = "code/"+ codeFileName + ".txt";
+                if (!File.Exists(path))
+                {
+                    // Create a file to write to.
+                    using (StreamWriter sw = File.CreateText(path))
+                    {
+                        sw.WriteLine(c);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+
+            //Bug bug = new Bug { BugId = }
         }
     }
 }

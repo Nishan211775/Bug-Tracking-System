@@ -70,8 +70,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAOImp\GenericDaoImp.cs" />
+    <Compile Include="DAO\BugDAO.cs" />
+    <Compile Include="DAO\CodeDAO.cs" />
     <Compile Include="DAO\GenericDAO.cs" />
+    <Compile Include="DAO\ImageDAO.cs" />
     <Compile Include="DAO\ProgrammerDAO.cs" />
+    <Compile Include="DAO\SourceControlDAO.cs" />
     <Compile Include="DAO\TesterDAO.cs" />
     <Compile Include="DBConnection.cs" />
     <Compile Include="Form1.cs">

@@ -90,7 +90,7 @@ namespace Bug_Tracker.DAO
         /// <param name="username"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        public bool IsLogin(string username, string password)
+        public int IsLogin(string username, string password)
         {
             conn.Open();
             SqlTransaction trans = null;
@@ -99,18 +99,14 @@ namespace Bug_Tracker.DAO
             {
                 SqlCommand sql = new SqlCommand(null, conn);
                 sql.Transaction = trans;
-                sql.CommandText = "SELECT * FROM tbl_tester WHERE username=@username AND password=@password";
+                sql.CommandText = "SELECT * FROM tbl_tester WHERE username=@username AND password=@password;SELECT SCOPE_IDENTITY()";
                 sql.Prepare();
                 sql.Parameters.AddWithValue("@username", username);
                 sql.Parameters.AddWithValue("@password", password);
 
-                SqlDataReader reader = sql.ExecuteReader();
+                int id = Convert.ToInt32(sql.ExecuteScalar());
 
-                while (reader.Read())
-                {
-                    return true;
-                }
-                trans.Commit();
+                return id;
             }
             catch (SqlException ex)
             {
@@ -121,8 +117,6 @@ namespace Bug_Tracker.DAO
             {
                 conn.Close();
             }
-
-            return false;
         }
     }
 }

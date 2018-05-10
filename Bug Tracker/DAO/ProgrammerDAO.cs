@@ -63,7 +63,7 @@ namespace Bug_Tracker.DAO
             throw new NotImplementedException();
         }
 
-        public bool IsLogin(string username, string password)
+        public int IsLogin(string username, string password)
         {
             conn.Open();
             SqlTransaction trans = null;
@@ -72,17 +72,14 @@ namespace Bug_Tracker.DAO
             {
                 SqlCommand sql = new SqlCommand(null, conn);
                 sql.Transaction = trans;
-                sql.CommandText = "SELECT * FROM tbl_programmer WHERE username=@username AND password=@password";
+                sql.CommandText = "SELECT * FROM tbl_programmer WHERE username=@username AND password=@password;SELECT SCOPE_IDENTITY()"; 
                 sql.Prepare();
                 sql.Parameters.AddWithValue("@username", username);
                 sql.Parameters.AddWithValue("@password", password);
 
-                SqlDataReader reader = sql.ExecuteReader();
+                int id = Convert.ToInt32(sql.ExecuteScalar());
 
-                while(reader.Read())
-                {
-                    return true;
-                }
+                return id;
                 //trans.Commit();
             } catch(SqlException ex)
             {
@@ -92,8 +89,6 @@ namespace Bug_Tracker.DAO
             {
                 conn.Close();
             }
-
-            return false;
         }
     }
 }

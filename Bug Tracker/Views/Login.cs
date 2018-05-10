@@ -13,6 +13,9 @@ namespace Bug_Tracker.Views
 {
     public partial class Login : Form
     {
+
+        public static int userId = 0;
+
         public Login()
         {
             InitializeComponent();
@@ -42,8 +45,9 @@ namespace Bug_Tracker.Views
             {
                 if (AccountType == "Programmer")
                 {
-                    if (new ProgrammerDAO().IsLogin(username, password))
+                    if (new ProgrammerDAO().IsLogin(username, password) > 0)
                     {
+                        userId = new ProgrammerDAO().IsLogin(username, password);
                         this.Hide();
                         new Main().Show();
                     } else
@@ -53,8 +57,9 @@ namespace Bug_Tracker.Views
                 }
                 else
                 {
-                    if (new TesterDAO().IsLogin(username, password))
+                    if (new TesterDAO().IsLogin(username, password) > 0)
                     {
+                        userId = new TesterDAO().IsLogin(username, password);
                         this.Hide();
                         new Main().Show();
                     }
