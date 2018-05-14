@@ -76,6 +76,7 @@
     <Compile Include="DAO\GenericDAO.cs" />
     <Compile Include="DAO\ImageDAO.cs" />
     <Compile Include="DAO\ProgrammerDAO.cs" />
+    <Compile Include="DAO\ProjectDAO.cs" />
     <Compile Include="DAO\SourceControlDAO.cs" />
     <Compile Include="DAO\TesterDAO.cs" />
     <Compile Include="DBConnection.cs" />
@@ -171,6 +172,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Admin.resx">
       <DependentUpon>Admin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\AdminDashboard.resx">
+      <DependentUpon>AdminDashboard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\AdminRegister.resx">
       <DependentUpon>AdminRegister.cs</DependentUpon>

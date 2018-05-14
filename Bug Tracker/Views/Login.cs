@@ -74,8 +74,7 @@ namespace Bug_Tracker.Views
         private void button2_Click(object sender, EventArgs e)
         {
             //opening new windows form
-            new Register().Show();
-            this.Hide();
+            Application.Exit();
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)

@@ -8,7 +8,8 @@ namespace Bug_Tracker.Model
 {
     class Project
     {
-        public int ProjectId { get; set; }
-        public int ProjectName { get; set; }
+        public int? ProjectId { get; set; }
+        public string ProjectName { get; set; }
+        public int? AdminId { get; set; }
     }
 }
