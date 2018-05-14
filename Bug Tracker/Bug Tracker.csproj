@@ -77,6 +77,7 @@
     <Compile Include="DAO\ImageDAO.cs" />
     <Compile Include="DAO\ProgrammerDAO.cs" />
     <Compile Include="DAO\ProjectDAO.cs" />
+    <Compile Include="DAO\ProjectProgrammerDAO.cs" />
     <Compile Include="DAO\SourceControlDAO.cs" />
     <Compile Include="DAO\TesterDAO.cs" />
     <Compile Include="DBConnection.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="Model\Image.cs" />
     <Compile Include="Model\Programmer.cs" />
     <Compile Include="Model\Project.cs" />
+    <Compile Include="Model\ProjectProgrammer.cs" />
     <Compile Include="Model\SourceControl.cs" />
     <Compile Include="Model\Tester.cs" />
     <Compile Include="Program.cs" />

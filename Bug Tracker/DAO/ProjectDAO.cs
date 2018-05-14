@@ -15,7 +15,29 @@ namespace Bug_Tracker.DAO
 
         public bool Delete(int id)
         {
-            throw new NotImplementedException();
+            conn.Open();
+            try
+            {
+                SqlCommand sql = new SqlCommand(null, conn);
+                sql.CommandText = "DELETE FROM tbl_project WHERE project_id=@projectId;";
+                sql.Prepare();
+                sql.Parameters.AddWithValue("@projectId", id);
+
+                int res = sql.ExecuteNonQuery();
+
+                if (res > 0)
+                {
+                    return true;
+                } else
+                {
+                    return false;
+                }
+
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public List<Project> GetAll()
@@ -91,7 +113,31 @@ namespace Bug_Tracker.DAO
 
         public void Update(Project t)
         {
-            throw new NotImplementedException();
+            conn.Open();
+            SqlTransaction trans = conn.BeginTransaction();
+
+            try
+            {
+                SqlCommand sql = new SqlCommand(null, conn);
+                sql.Transaction = trans;
+                sql.CommandText = "UPDATE tbl_project SET project_name = @projectName WHERE project_id = @projectId";
+                sql.Prepare();
+                sql.Parameters.AddWithValue("@projectName", t.ProjectName);
+                sql.Parameters.AddWithValue("@projectId", t.ProjectId);
+
+                sql.ExecuteNonQuery();
+
+                trans.Commit();
+            }
+            catch (SqlException ex)
+            {
+                trans.Rollback();
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
         }
     }
 }
