@@ -286,5 +286,15 @@ namespace Bug_Tracker.Views
 
             //Bug bug = new Bug { BugId = }
         }
+
+        private void toolStripSeparator5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void allBugsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new Bugs().Show();
+        }
     }
 }

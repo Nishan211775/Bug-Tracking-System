@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAOImp\GenericDaoImp.cs" />
+    <Compile Include="DAO\AdminDAO.cs" />
     <Compile Include="DAO\BugDAO.cs" />
     <Compile Include="DAO\CodeDAO.cs" />
     <Compile Include="DAO\GenericDAO.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\Admin.cs" />
     <Compile Include="Model\Assign.cs" />
     <Compile Include="Model\Bug.cs" />
     <Compile Include="Model\BugHistory.cs" />
@@ -92,6 +94,7 @@
     <Compile Include="Model\Fixer.cs" />
     <Compile Include="Model\Image.cs" />
     <Compile Include="Model\Programmer.cs" />
+    <Compile Include="Model\Project.cs" />
     <Compile Include="Model\SourceControl.cs" />
     <Compile Include="Model\Tester.cs" />
     <Compile Include="Program.cs" />
@@ -101,6 +104,30 @@
     </Compile>
     <Compile Include="Views\AboutUs.Designer.cs">
       <DependentUpon>AboutUs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Admin.Designer.cs">
+      <DependentUpon>Admin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AdminDashboard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\AdminDashboard.Designer.cs">
+      <DependentUpon>AdminDashboard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AdminRegister.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\AdminRegister.Designer.cs">
+      <DependentUpon>AdminRegister.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Bugs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Bugs.Designer.cs">
+      <DependentUpon>Bugs.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Dashboard.cs">
       <SubType>Form</SubType>
@@ -141,6 +168,15 @@
     </Compile>
     <EmbeddedResource Include="Views\AboutUs.resx">
       <DependentUpon>AboutUs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Admin.resx">
+      <DependentUpon>Admin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\AdminRegister.resx">
+      <DependentUpon>AdminRegister.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Bugs.resx">
+      <DependentUpon>Bugs.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Dashboard.resx">
       <DependentUpon>Dashboard.cs</DependentUpon>

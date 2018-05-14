@@ -77,5 +77,16 @@ namespace Bug_Tracker.Views
             new Register().Show();
             this.Hide();
         }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void loginAsAdminToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            new Admin().Show();
+        }
     }
 }
