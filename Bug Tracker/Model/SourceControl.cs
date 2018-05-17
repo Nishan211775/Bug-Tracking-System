@@ -11,6 +11,10 @@ namespace Bug_Tracker.Model
     /// </summary>
     class SourceControl
     {
-        
+        public int? SourceControlId { get; set; }
+        public string Link { get; set; }
+        public int StartLine { get; set; }
+        public int EndLine { get; set; }
+        public int? BugId { get; set; }
     }
 }

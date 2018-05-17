@@ -55,12 +55,13 @@ namespace Bug_Tracker.DAO
             Bug bug = null;
             Code code = null;
             Image image = null;
+            SourceControl sourceControl = null;
 
             try
             {
                 SqlCommand sql = new SqlCommand(null, conn);
                 sql.Transaction = trans;
-                sql.CommandText = "SELECT * FROM tbl_bug b JOIN tbl_code c ON b.bug_id = c.bug_id JOIN tbl_image i ON b.bug_id = i.bug_id WHERE bug_status = 0 AND b.bug_id = @id;";
+                sql.CommandText = "SELECT * FROM tbl_bug b JOIN tbl_code c ON b.bug_id = c.bug_id JOIN tbl_image i ON b.bug_id = i.bug_id JOIN tbl_source_control sc ON sc.bug_id = i.bug_id WHERE bug_status = 0 AND b.bug_id = @id;";
                 sql.Prepare();
                 sql.Parameters.AddWithValue("@id", id);
 
@@ -71,6 +72,7 @@ namespace Bug_Tracker.DAO
                         bug = new Bug();
                         code = new Code();
                         image = new Image();
+                        sourceControl = new SourceControl();
 
                         bug.BugId = Convert.ToInt32(reader["bug_id"]);
                         bug.ProjectName = Convert.ToString(reader["project_name"]);
@@ -92,6 +94,13 @@ namespace Bug_Tracker.DAO
                         image.ImageName = Convert.ToString(reader["image_name"]);
                         image.BugId = Convert.ToInt32(reader["bug_id"]);
 
+                        sourceControl.SourceControlId = Convert.ToInt32(reader["source_control_id"]);
+                        sourceControl.Link = reader["link"].ToString();
+                        sourceControl.StartLine = Convert.ToInt32(reader["start_line"]);
+                        sourceControl.EndLine = Convert.ToInt32(reader["end_line"]);
+                        sourceControl.BugId = Convert.ToInt32(reader["bug_id"]);
+
+                        bug.SourceControl = sourceControl;
                         bug.Images = image;
                         bug.Codes = code;
                     }
@@ -192,12 +201,13 @@ namespace Bug_Tracker.DAO
             Bug bug = null;
             Code code = null;
             Image image = null;
+            SourceControl sourceControl = null;
 
             try
             {
                 SqlCommand sql = new SqlCommand(null, conn);
                 sql.Transaction = trans;
-                sql.CommandText = "SELECT * FROM tbl_bug b JOIN tbl_code c ON b.bug_id = c.bug_id JOIN tbl_image i ON b.bug_id = i.bug_id WHERE bug_status = 0;";
+                sql.CommandText = "SELECT * FROM tbl_bug b JOIN tbl_code c ON b.bug_id = c.bug_id JOIN tbl_image i ON b.bug_id = i.bug_id JOIN tbl_source_control sc ON sc.bug_id = i.bug_id WHERE bug_status = 0 ;";
                 sql.Prepare();
 
                 using (SqlDataReader reader = sql.ExecuteReader())
@@ -207,6 +217,7 @@ namespace Bug_Tracker.DAO
                         bug = new Bug();
                         code = new Code();
                         image = new Image();
+                        sourceControl = new SourceControl();
 
                         bug.BugId = Convert.ToInt32(reader["bug_id"]);
                         bug.ProjectName = Convert.ToString(reader["project_name"]);
@@ -228,6 +239,13 @@ namespace Bug_Tracker.DAO
                         image.ImageName = Convert.ToString(reader["image_name"]);
                         image.BugId = Convert.ToInt32(reader["bug_id"]);
 
+                        sourceControl.SourceControlId = Convert.ToInt32(reader["source_control_id"]);
+                        sourceControl.Link = reader["link"].ToString();
+                        sourceControl.StartLine = Convert.ToInt32(reader["start_line"]);
+                        sourceControl.EndLine = Convert.ToInt32(reader["end_line"]);
+                        sourceControl.BugId = Convert.ToInt32(reader["bug_id"]);
+
+                        bug.SourceControl = sourceControl;
                         bug.Images = image;
                         bug.Codes = code;
                         bugList.Add(bug);

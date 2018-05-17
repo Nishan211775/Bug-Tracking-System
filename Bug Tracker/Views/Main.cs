@@ -24,6 +24,7 @@ namespace Bug_Tracker.Views
         private bool inserted = false;
         private bool inserted1 = false;
         private bool inserted2 = false;
+        private bool inserted3 = false;
         public Main()
         {
             this.StartPosition = FormStartPosition.CenterScreen;
@@ -220,7 +221,7 @@ namespace Bug_Tracker.Views
         private void button1_Click(object sender, EventArgs e)
         {
 
-            if (string.IsNullOrEmpty(comboBox1.SelectedItem.ToString()) || string.IsNullOrEmpty(textBox2.Text) || string.IsNullOrEmpty(textBox3.Text) || string.IsNullOrEmpty(textBox4.Text) || string.IsNullOrEmpty(textBox5.Text))
+            if (string.IsNullOrEmpty(comboBox1.SelectedItem.ToString()) || string.IsNullOrEmpty(textBox2.Text) || string.IsNullOrEmpty(textBox3.Text) || string.IsNullOrEmpty(textBox4.Text) || string.IsNullOrEmpty(textBox5.Text) || string.IsNullOrEmpty(textBox1.Text) || string.IsNullOrEmpty(textBox6.Text) || string.IsNullOrEmpty(textBox7.Text))
             {
                 MessageBox.Show("You must add all project information");
             } else if(string.IsNullOrEmpty(fastColoredTextBox1.Text))
@@ -315,6 +316,30 @@ namespace Bug_Tracker.Views
                     Console.WriteLine(ex.Message);
                 }
 
+
+                ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                ////Link
+
+                SourceControl sourceControl = new SourceControl
+                {
+                    Link = textBox1.Text,
+                    StartLine = Convert.ToInt32(textBox6.Text),
+                    EndLine = Convert.ToInt32(textBox7.Text),
+                    BugId = bug.BugId
+                };
+
+                SourceControlDAO sourceControlDAO = new SourceControlDAO();
+                
+                try
+                {
+                    sourceControlDAO.Insert(sourceControl);
+                    inserted3 = true;
+                } catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+
+
                 if (inserted && inserted1 && inserted2)
                 {
                     MessageBox.Show("Added");
@@ -334,6 +359,32 @@ namespace Bug_Tracker.Views
         private void allBugsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new Bugs().Show();
+        }
+
+        private void textBox1_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == (Keys.Control | Keys.V))
+            {
+                try
+                {
+                    (sender as TextBox).Paste();
+                    link.Text = textBox1.Text;
+                }
+                catch (NullReferenceException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+        }
+
+        private void fastColoredTextBox1_KeyUp(object sender, KeyEventArgs e)
+        {
+            
+        }
+
+        private void link_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start(link.Text);
         }
     }
 }

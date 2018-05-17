@@ -17,6 +17,13 @@ namespace Bug_Tracker.Views
         public TesterDashboard()
         {
             InitializeComponent();
+
+            panel1.AutoScroll = false;
+            panel1.HorizontalScroll.Enabled = false;
+            panel1.HorizontalScroll.Visible = false;
+            panel1.HorizontalScroll.Maximum = 0;
+            panel1.AutoScroll = true;
+
             LoopPanel loop = new LoopPanel();
             BugDAO bug = new BugDAO();
             loop.loopPanel(bug.getAllBugs(), panel1, this);

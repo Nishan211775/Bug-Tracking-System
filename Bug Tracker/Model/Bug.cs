@@ -21,5 +21,6 @@ namespace Bug_Tracker.Model
         public string Status { get; set; }
         public Image Images { get; set; }
         public Code Codes { get; set; }
+        public SourceControl SourceControl { get; set; }
     }
 }

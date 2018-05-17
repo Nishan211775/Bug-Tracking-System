@@ -45,6 +45,7 @@ namespace Bug_Tracker.Views
             bugId = bug.BugId;
             codeId = bug.Codes.CodeId;
             imageId = bug.Images.ImageId;
+            linkLabel1.Text = bug.SourceControl.Link;
 
             /*
              *Open the file to read from.
@@ -219,6 +220,7 @@ namespace Bug_Tracker.Views
         {
             ImageDAO imageDAO = new ImageDAO();
             CodeDAO codeDAO = new CodeDAO();
+            SourceControlDAO sourceControl = new SourceControlDAO();
             BugDAO bugDAO = new BugDAO();
 
             DialogResult dr = MessageBox.Show("Are you sure want to delete this bug?", "Are you sure", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information);
@@ -230,6 +232,7 @@ namespace Bug_Tracker.Views
                     codeDAO.Delete(bugId);
                     imageDAO.Delete(bugId);
                     bugDAO.Delete(bugId);
+                    sourceControl.Delete(bugId);
 
                     MessageBox.Show("Deleted");
                     this.Dispose();
@@ -239,6 +242,11 @@ namespace Bug_Tracker.Views
                     Console.WriteLine(ex.Message);
                 }
             }
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start(linkLabel1.Text);
         }
     }
 }
