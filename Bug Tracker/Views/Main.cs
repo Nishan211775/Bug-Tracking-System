@@ -21,7 +21,9 @@ namespace Bug_Tracker.Views
         private string imageName;
         private string ImageName;
         private string imageSource;
-        private string imgn;
+        private bool inserted = false;
+        private bool inserted1 = false;
+        private bool inserted2 = false;
         public Main()
         {
             this.StartPosition = FormStartPosition.CenterScreen;
@@ -217,87 +219,111 @@ namespace Bug_Tracker.Views
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //bug
-            Bug bug = new Bug
+
+            if (string.IsNullOrEmpty(comboBox1.SelectedItem.ToString()) || string.IsNullOrEmpty(textBox2.Text) || string.IsNullOrEmpty(textBox3.Text) || string.IsNullOrEmpty(textBox4.Text) || string.IsNullOrEmpty(textBox5.Text))
             {
-                ProjectName = comboBox1.SelectedItem.ToString(),
-                ClassName = textBox2.Text,
-                MethodName = textBox3.Text,
-                StartLine = Convert.ToInt16(textBox4.Text),
-                EndLine = Convert.ToInt16(textBox5.Text),
-                ProgrammerId = Login.userId,
-                Status = "0"
-            };
-
-            try
+                MessageBox.Show("You must add all project information");
+            } else if(string.IsNullOrEmpty(fastColoredTextBox1.Text))
             {
-                BugDAO bugDao = new BugDAO();
-                bugDao.Insert(bug);
-            } catch(Exception ex)
+                MessageBox.Show("Code field cann't be null");
+            } else
             {
-                Console.WriteLine(ex.Message);
-            }
-            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            //image
-
-
-            string appPath = Path.GetDirectoryName(Application.ExecutablePath) + @"\code_image\";
-            Bug_Tracker.Model.Image image = new Bug_Tracker.Model.Image
-            {
-                ImagePath = "code_image",
-                ImageName = ImageName,
-                BugId = bug.BugId
-            };
-
-            try
-            {
-                ImageDAO codeDao = new ImageDAO();
-                codeDao.Insert(image);
-
-                File.Copy(imageName, appPath + ImageName);
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
-            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            ////code
-            string c = fastColoredTextBox1.Text;
-            string codeFileName = DateTime.Now.Second.ToString();
-
-            Code code = new Code
-            {
-                CodeFilePath = "code",
-                CodeFileName = codeFileName,
-                ProgrammingLanguage = programminLanguage,
-                BugId = bug.BugId
-            };
-
-            try
-            {
-                CodeDAO codeDao = new CodeDAO();
-                codeDao.Insert(code);
-
-                string path = "code/"+ codeFileName + ".txt";
-                if (!File.Exists(path))
+                //bug
+                Bug bug = new Bug
                 {
-                    // Create a file to write to.
-                    using (StreamWriter sw = File.CreateText(path))
+                    ProjectName = comboBox1.SelectedItem.ToString(),
+                    ClassName = textBox2.Text,
+                    MethodName = textBox3.Text,
+                    StartLine = Convert.ToInt16(textBox4.Text),
+                    EndLine = Convert.ToInt16(textBox5.Text),
+                    ProgrammerId = Login.userId,
+                    Status = "0"
+                };
+
+                try
+                {
+                    BugDAO bugDao = new BugDAO();
+                    bugDao.Insert(bug);
+                    inserted = true;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+                ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                //image
+
+
+                if (!string.IsNullOrEmpty(imageName))
+                {
+                    string appPath = Path.GetDirectoryName(Application.ExecutablePath) + @"\code_image\";
+                    Bug_Tracker.Model.Image image = new Bug_Tracker.Model.Image
                     {
-                        sw.WriteLine(c);
+                        ImagePath = "code_image",
+                        ImageName = ImageName,
+                        BugId = bug.BugId
+                    };
+
+                    try
+                    {
+                        ImageDAO codeDao = new ImageDAO();
+                        codeDao.Insert(image);
+
+                        File.Copy(imageName, appPath + ImageName);
+
+                        inserted1 = true;
+
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
 
-            MessageBox.Show("Added");
+                ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                ////code
+                string c = fastColoredTextBox1.Text;
+                string codeFileName = DateTime.Now.Second.ToString();
 
-            //Bug bug = new Bug { BugId = }
+                Code code = new Code
+                {
+                    CodeFilePath = "code",
+                    CodeFileName = codeFileName,
+                    ProgrammingLanguage = programminLanguage,
+                    BugId = bug.BugId
+                };
+
+                try
+                {
+                    CodeDAO codeDao = new CodeDAO();
+                    codeDao.Insert(code);
+
+                    string path = "code/" + codeFileName + ".txt";
+                    if (!File.Exists(path))
+                    {
+                        // Create a file to write to.
+                        using (StreamWriter sw = File.CreateText(path))
+                        {
+                            sw.WriteLine(c);
+                        }
+                    }
+
+                    inserted2 = true;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+
+                if (inserted && inserted1 && inserted2)
+                {
+                    MessageBox.Show("Added");
+                } else
+                {
+                    MessageBox.Show("Unable to add");
+                }
+
+            }
         }
 
         private void toolStripSeparator5_Click(object sender, EventArgs e)

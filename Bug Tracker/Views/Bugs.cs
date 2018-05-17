@@ -1,4 +1,5 @@
-﻿using Bug_Tracker.DAO;
+﻿using Bug_Tracker.Common;
+using Bug_Tracker.DAO;
 using Bug_Tracker.Model;
 using System;
 using System.Collections;
@@ -39,7 +40,7 @@ namespace Bug_Tracker.Views
             {
                 BugDAO bugDao = new BugDAO();
                 List<Bug> list = bugDao.getAllBugs();
-                loopPanel(list);
+                new LoopPanel().loopPanel(list, panelBugs, this);
                 
             }
             catch (Exception ex)
