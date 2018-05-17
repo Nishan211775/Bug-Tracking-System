@@ -1,4 +1,11 @@
-﻿namespace Bug_Tracker.Views
+﻿using Bug_Tracker.Model;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
+using System.Windows.Forms;
+
+namespace Bug_Tracker.Views
 {
     partial class Bugs
     {
@@ -6,6 +13,7 @@
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
+        public static int rowId = 0;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -29,84 +37,22 @@
         private void InitializeComponent()
         {
             this.panelBugs = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panelAssigned = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.panelBugs.SuspendLayout();
-            this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panelAssigned.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelBugs
             // 
             this.panelBugs.BackColor = System.Drawing.Color.YellowGreen;
-            this.panelBugs.Controls.Add(this.panel3);
             this.panelBugs.Controls.Add(this.label1);
             this.panelBugs.ForeColor = System.Drawing.SystemColors.Window;
             this.panelBugs.Location = new System.Drawing.Point(2, 1);
             this.panelBugs.Name = "panelBugs";
             this.panelBugs.Size = new System.Drawing.Size(561, 567);
             this.panelBugs.TabIndex = 0;
-            // 
-            // panel3
-            // 
-            this.panel3.BackColor = System.Drawing.Color.DarkOliveGreen;
-            this.panel3.Controls.Add(this.label5);
-            this.panel3.Controls.Add(this.label4);
-            this.panel3.Controls.Add(this.label3);
-            this.panel3.Controls.Add(this.pictureBox1);
-            this.panel3.Location = new System.Drawing.Point(10, 56);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(535, 100);
-            this.panel3.TabIndex = 1;
-            this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(4, 71);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(53, 16);
-            this.label5.TabIndex = 3;
-            this.label5.Text = "Method";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(3, 34);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(42, 16);
-            this.label4.TabIndex = 2;
-            this.label4.Text = "Class";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(3, 3);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(50, 16);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "Project";
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Location = new System.Drawing.Point(391, 3);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(141, 94);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            // 
-            // label1
-            // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(177, 17);
@@ -147,9 +93,6 @@
             this.Load += new System.EventHandler(this.Bugs_Load);
             this.panelBugs.ResumeLayout(false);
             this.panelBugs.PerformLayout();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panelAssigned.ResumeLayout(false);
             this.panelAssigned.PerformLayout();
             this.ResumeLayout(false);
@@ -162,10 +105,97 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panelAssigned;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.PictureBox pictureBox1;
+
+
+        private void loopPanel(List<Bug> list)
+        {
+            
+             int x = 56;
+             foreach (var bug in list)
+             {//56
+                //int x = 0;
+                Panel panel = new Panel();
+                panel.Text = bug.BugId.ToString();
+                this.panelBugs.Controls.Add(panel);
+
+                Label lblProject = new Label();
+                Label lblClass = new Label();
+                Label lblMethod = new Label();
+                PictureBox pictureBox = new PictureBox();
+
+                panel.Click += new EventHandler(toolStripClick);
+
+                void toolStripClick(object sender, EventArgs e)
+                {
+                    rowId = Convert.ToInt32(panel.Text);
+                }
+
+                //
+                //panel
+                //
+                panel.BackColor = System.Drawing.Color.DarkOliveGreen;
+                panel.Controls.Add(lblMethod);
+                panel.Controls.Add(lblClass);
+                panel.Controls.Add(lblProject);
+                panel.Controls.Add(pictureBox);
+                panel.Location = new System.Drawing.Point(10, x);
+                x += 105;
+                panel.Name = panel + bug.BugId.ToString();
+                panel.Size = new System.Drawing.Size(535, 100);
+                panel.TabIndex = 1;
+                //panel.Paint += new System.Windows.Forms.PaintEventHandler(panel_Paint);
+                panel.SuspendLayout();
+                //
+                //lblProject
+                //
+                lblProject.AutoSize = true;
+                lblProject.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                lblProject.Location = new System.Drawing.Point(3, 3);
+                lblProject.Name = lblProject + bug.BugId.ToString();
+                lblProject.Size = new System.Drawing.Size(50, 16);
+                lblProject.TabIndex = 1;
+                lblProject.Text = "Project: "+ bug.ProjectName;
+
+                //
+                //lblClass
+                //
+                lblClass.AutoSize = true;
+                lblClass.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                lblClass.Location = new System.Drawing.Point(3, 34);
+                lblClass.Name = lblClass + bug.BugId.ToString();
+                lblClass.Size = new System.Drawing.Size(42, 16);
+                lblClass.TabIndex = 2;
+                lblClass.Text = "Class: " + bug.ClassName;
+
+                //
+                //lblMethod
+                //
+                lblMethod.AutoSize = true;
+                lblMethod.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                lblMethod.Location = new System.Drawing.Point(4, 71);
+                lblMethod.Name = lblMethod + bug.BugId.ToString();
+                lblMethod.Size = new System.Drawing.Size(53, 16);
+                lblMethod.TabIndex = 3;
+                lblMethod.Text = "Method: " + bug.MethodName;
+
+                //
+                //pictureBox
+                //
+                pictureBox.Location = new System.Drawing.Point(391, 3);
+                pictureBox.Name = pictureBox + bug.BugId.ToString();
+                pictureBox.Size = new System.Drawing.Size(141, 94);
+                pictureBox.TabIndex = 0;
+                pictureBox.TabStop = false;
+                ((System.ComponentModel.ISupportInitialize)(pictureBox)).BeginInit();
+
+                pictureBox.Image = new Bitmap(Path.Combine(bug.Images.ImagePath +"/"  , bug.Images.ImageName));
+                pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+
+                panel.ResumeLayout(false);
+                panel.PerformLayout();
+                ((System.ComponentModel.ISupportInitialize)(pictureBox)).EndInit();
+            }
+        }
+
     }
 }

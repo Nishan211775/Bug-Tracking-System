@@ -75,11 +75,14 @@ namespace Bug_Tracker.DAO
         /// get all bugs with related code and image
         /// </summary>
         /// <returns>List<string></returns>
-        public ArrayList getAllBugs()
+        public List<Bug> getAllBugs()
         {
             conn.Open();
             SqlTransaction trans = conn.BeginTransaction();
-            ArrayList list = new ArrayList();
+            List<Bug> bugList = new List<Bug>();
+            Bug bug = null;
+            Code code = null;
+            Image image = null;
 
             try
             {
@@ -92,31 +95,33 @@ namespace Bug_Tracker.DAO
                 {
                     while(reader.Read())
                     {
+                        bug = new Bug();
+                        code = new Code();
+                        image = new Image();
 
-                        object[] tempRow = new object[reader.FieldCount];
-                        for (int i = 0; i < reader.FieldCount; i++)
-                        {
-                            tempRow[i] = reader[i];
-                        }
-                        list.Add(tempRow);
+                        bug.BugId = Convert.ToInt32(reader["bug_id"]);
+                        bug.ProjectName = Convert.ToString(reader["project_name"]);
+                        bug.ClassName = Convert.ToString(reader["class_name"]);
+                        bug.MethodName = Convert.ToString(reader["method_name"]);
+                        bug.StartLine = Convert.ToInt32(reader["start_line"]);
+                        bug.EndLine = Convert.ToInt32(reader["end_line"]);
+                        bug.ProgrammerId = Convert.ToInt32(reader["code_author"]);
+                        bug.Status = Convert.ToString(reader["bug_status"]);
 
-                        //list.Add(reader["bug_id"].ToString());
-                        //list.Add(reader["project_name"].ToString());
-                        //list.Add(reader["class_name"].ToString());
-                        //list.Add(reader["method_name"].ToString());
-                        //list.Add(reader["start_line"].ToString());
-                        //list.Add(reader["end_line"].ToString());
-                        //list.Add(reader["code_author"].ToString());
-                        //list.Add(reader["bug_status"].ToString());
-                        //list.Add(reader["code_id"].ToString());
-                        //list.Add(reader["code_file_path"].ToString());
-                        //list.Add(reader["code_file_name"].ToString());
-                        //list.Add(reader["programming_language"].ToString());
-                        //list.Add(reader["bug_id"].ToString());
-                        //list.Add(reader["image_id"].ToString());
-                        //list.Add(reader["image_path"].ToString());
-                        //list.Add(reader["image_name"].ToString());
-                        //list.Add(reader["bug_id"].ToString());
+                        code.CodeId = Convert.ToInt32(reader["code_id"]);
+                        code.CodeFilePath = Convert.ToString(reader["code_file_path"]);
+                        code.CodeFileName = Convert.ToString(reader["code_file_name"]);
+                        code.ProgrammingLanguage = Convert.ToString(reader["programming_language"]);
+                        code.BugId = Convert.ToInt32(reader["bug_id"]);
+
+                        image.ImageId = Convert.ToInt32(reader["image_id"]);
+                        image.ImagePath = Convert.ToString(reader["image_path"]);
+                        image.ImageName = Convert.ToString(reader["image_name"]);
+                        image.BugId = Convert.ToInt32(reader["bug_id"]);
+
+                        bug.Images = image;
+                        bug.Codes = code;
+                        bugList.Add(bug);
                     }
                 }
 
@@ -129,10 +134,10 @@ namespace Bug_Tracker.DAO
             } catch(NullReferenceException ex)
             {
                 trans.Rollback();
-                throw ex;
+                throw new NullReferenceException(ex.Message);
             }
 
-            return list;
+            return bugList;
         }
     }
 }

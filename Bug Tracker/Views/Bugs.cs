@@ -1,4 +1,5 @@
 ﻿using Bug_Tracker.DAO;
+using Bug_Tracker.Model;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -34,12 +35,17 @@ namespace Bug_Tracker.Views
             panelAssigned.HorizontalScroll.Maximum = 0;
             panelAssigned.AutoScroll = true;
 
-            BugDAO bugDao = new BugDAO();
-            ArrayList list = bugDao.getAllBugs();
-
-            foreach(var l in list)
+            try
             {
-                Console.WriteLine(l);
+                BugDAO bugDao = new BugDAO();
+                List<Bug> list = bugDao.getAllBugs();
+                loopPanel(list);
+                
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine(ex.Message);
             }
 
         }
