@@ -76,6 +76,7 @@
     <Compile Include="DAO\BugDAO.cs" />
     <Compile Include="DAO\BugInformationDAO.cs" />
     <Compile Include="DAO\CodeDAO.cs" />
+    <Compile Include="DAO\FixerDAO.cs" />
     <Compile Include="DAO\GenericDAO.cs" />
     <Compile Include="DAO\ImageDAO.cs" />
     <Compile Include="DAO\ProgrammerDAO.cs" />

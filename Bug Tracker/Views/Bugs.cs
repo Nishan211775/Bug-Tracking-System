@@ -36,14 +36,28 @@ namespace Bug_Tracker.Views
             panelAssigned.HorizontalScroll.Maximum = 0;
             panelAssigned.AutoScroll = true;
 
+            BugDAO bugDao = new BugDAO();
+
             try
             {
-                BugDAO bugDao = new BugDAO();
                 List<Bug> list = bugDao.getAllBugs();
                 var newLoopPanel = new LoopPanel();
-                var newUpdateBug = new UpdateBug();
+                var newUpdateBug = new UpdateBug(false);
                 newLoopPanel.loopPanel(list, panelBugs, this, newUpdateBug);
                 
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine(ex.Message);
+            }
+
+            try
+            {
+                List<Bug> bug = bugDao.GetAllBugsByProgrammerId(Login.userId);
+                var newLoopPanel = new LoopPanel();
+                var newUpdateBug = new UpdateBug(true);
+                newLoopPanel.loopPanel(bug, panelAssigned, this, newUpdateBug);
             }
             catch (Exception ex)
             {

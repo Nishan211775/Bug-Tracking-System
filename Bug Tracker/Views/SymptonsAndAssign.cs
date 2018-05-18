@@ -17,10 +17,11 @@ namespace Bug_Tracker.Views
         //add button 1
         //update butto 2
         int id = 0;
+        private int programmerId = 0;
         public SymptonsAndAssign()
         {
             InitializeComponent();
-
+            button4.Hide();
             
         }
 
@@ -82,6 +83,19 @@ namespace Bug_Tracker.Views
                 //comboBox1.ValueMember = l.ProgrammerId.ToString();
             }
 
+            assignedUser();
+
+        }
+
+        private void assignedUser()
+        {
+            listBox1.Items.Clear();
+            AssignDAO assignDAO = new AssignDAO();
+            List<string> assignList = assignDAO.GetAllAssignedUsersByBugId(Program.bugId);
+            foreach (var a in assignList)
+            {
+                listBox1.Items.Add(a);
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -115,6 +129,7 @@ namespace Bug_Tracker.Views
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //button4.Show();
             AssignDAO bugInformationDAO = new AssignDAO();
             string value = comboBox1.SelectedItem.ToString();
             string[] s = value.Split(',');
@@ -141,6 +156,7 @@ namespace Bug_Tracker.Views
 
         private void button3_Click(object sender, EventArgs e)
         {
+            assignedUser();
             Assign assign = new Assign {
                 AssignBy = Login.userId,
                 AssignTo = id,
@@ -160,6 +176,28 @@ namespace Bug_Tracker.Views
                 Console.WriteLine(ex.Message);
             }
 
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            AssignDAO assignDAO = new AssignDAO();
+
+            try
+            {
+                bool res = assignDAO.RemoveAssignedUser(Program.bugId, id);
+
+                if(res)
+                {
+                    assignedUser();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine(ex.Message);
+            }
+
+            
         }
     }
 }

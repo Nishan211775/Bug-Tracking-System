@@ -25,22 +25,41 @@ namespace Bug_Tracker.Views
         public static int bugId = 0;
         private int codeId = 0;
         private int imageId = 0;
+        private bool disableButtons = false;
 
-        public UpdateBug()
+        BugDAO bugDAO = new BugDAO();
+        Bug bug = null;
+
+        public UpdateBug(bool disableButtons)
         {
             InitializeComponent();
-            
+            this.disableButtons = disableButtons;
         }
 
         private void UpdateBug_Load(object sender, EventArgs e)
         {
+            bug = bugDAO.GetById(Program.bugId);
             this.StartPosition = FormStartPosition.CenterScreen;
             //this.FormBorderStyle = FormBorderStyle.None;
             this.WindowState = FormWindowState.Maximized;
 
-            BugDAO bugDAO = new BugDAO();
-            Bug bug = bugDAO.GetById(Program.bugId);
+            if(disableButtons)
+            {
+                textBox2.Enabled = false;
+                textBox3.Enabled = false;
+                textBox4.Enabled = false;
+                textBox5.Enabled = false;
+                button2.Hide();
+                button3.Hide();
+                btnUpdate.Hide();
+                button5.Show();
+            } else
+            {
+                button5.Show();
+            }
 
+            
+            
             //binding value to related labels and textbox
             label1.Text = bug.ProjectName;
             textBox2.Text = bug.ClassName;
@@ -254,6 +273,44 @@ namespace Bug_Tracker.Views
         private void button4_Click(object sender, EventArgs e)
         {
             new SymptonsAndAssign().Show();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            string codeFileName = bug.Codes.CodeFileName;
+            string codeFilePath = bug.Codes.CodeFilePath;
+            string c = fastColoredTextBox1.Text;
+
+            FixerDAO fixerDAO = new FixerDAO();
+            BugDAO bugDAO = new BugDAO();
+
+            Fixer fixer = new Fixer
+            {
+                FixedBy = Login.userId,
+                BugId = Program.bugId
+            };
+
+            try
+            {
+                fixerDAO.Insert(fixer);
+                bugDAO.BugFixed(Program.bugId);
+                MessageBox.Show("Oh great work");
+                this.Dispose();
+                new Bugs().Show();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            string path = "code/" + codeFileName + ".txt";
+            using (StreamWriter sw = File.CreateText(path))
+            {
+                sw.WriteLine(c);
+            }
+
+
+
         }
     }
 }
