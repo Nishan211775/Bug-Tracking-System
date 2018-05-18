@@ -11,11 +11,10 @@ namespace Bug_Tracker.Model
     /// </summary>
     class Assign
     {
-        public int AssignId { get; set; }
+        public int? AssignId { get; set; }
         public int AssignBy { get; set; }
         public int AssignTo { get; set; }
-        public DateTime AssignDate { get; set; }
-        public DateTime DeadLine { get; set; }
+        public DateTime? AssignDate { get; set; }
         public int BugId { get; set; }
         public string Description { get; set; }
     }

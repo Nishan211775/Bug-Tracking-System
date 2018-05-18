@@ -40,7 +40,9 @@ namespace Bug_Tracker.Views
             {
                 BugDAO bugDao = new BugDAO();
                 List<Bug> list = bugDao.getAllBugs();
-                new LoopPanel().loopPanel(list, panelBugs, this);
+                var newLoopPanel = new LoopPanel();
+                var newUpdateBug = new UpdateBug();
+                newLoopPanel.loopPanel(list, panelBugs, this, newUpdateBug);
                 
             }
             catch (Exception ex)

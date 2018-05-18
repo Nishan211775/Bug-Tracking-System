@@ -46,6 +46,7 @@
             this.Controls.Add(this.panel1);
             this.Name = "TesterDashboard";
             this.Text = "TesterDashboard";
+            this.Load += new System.EventHandler(this.TesterDashboard_Load);
             this.ResumeLayout(false);
 
         }

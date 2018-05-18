@@ -22,16 +22,25 @@ namespace Bug_Tracker.Views
         private string currentImageName;
         private string codeFileName;
 
-        private int bugId = 0;
+        public static int bugId = 0;
         private int codeId = 0;
         private int imageId = 0;
 
         public UpdateBug()
         {
             InitializeComponent();
+            
+        }
+
+        private void UpdateBug_Load(object sender, EventArgs e)
+        {
+            this.StartPosition = FormStartPosition.CenterScreen;
+            //this.FormBorderStyle = FormBorderStyle.None;
+            this.WindowState = FormWindowState.Maximized;
+
             BugDAO bugDAO = new BugDAO();
             Bug bug = bugDAO.GetById(Program.bugId);
-                    
+
             //binding value to related labels and textbox
             label1.Text = bug.ProjectName;
             textBox2.Text = bug.ClassName;
@@ -97,18 +106,11 @@ namespace Bug_Tracker.Views
                 fastColoredTextBox1.Language = FastColoredTextBoxNS.Language.XML;
             }
 
-            if(bug.Images.ImageName != "")
+            if (bug.Images.ImageName != "")
             {
                 pictureBox1.Image = new Bitmap(Path.Combine(bug.Images.ImagePath + "/", bug.Images.ImageName));
                 pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             }
-        }
-
-        private void UpdateBug_Load(object sender, EventArgs e)
-        {
-            this.StartPosition = FormStartPosition.CenterScreen;
-            //this.FormBorderStyle = FormBorderStyle.None;
-            this.WindowState = FormWindowState.Maximized;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -247,6 +249,11 @@ namespace Bug_Tracker.Views
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start(linkLabel1.Text);
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            new SymptonsAndAssign().Show();
         }
     }
 }

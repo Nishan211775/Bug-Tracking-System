@@ -26,7 +26,12 @@ namespace Bug_Tracker.Views
 
             LoopPanel loop = new LoopPanel();
             BugDAO bug = new BugDAO();
-            loop.loopPanel(bug.getAllBugs(), panel1, this);
+            loop.loopPanel(bug.getAllBugs(), panel1, this, new SymptonsAndAssign());
+        }
+
+        private void TesterDashboard_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
