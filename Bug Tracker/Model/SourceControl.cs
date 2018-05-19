@@ -9,7 +9,7 @@ namespace Bug_Tracker.Model
     /// <summary>
     /// Model for saving details about source control
     /// </summary>
-    class SourceControl
+    public class SourceControl
     {
         public int? SourceControlId { get; set; }
         public string Link { get; set; }

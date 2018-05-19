@@ -34,6 +34,7 @@ namespace Bug_Tracker.Views
         {
             InitializeComponent();
             this.disableButtons = disableButtons;
+            this.StartPosition = FormStartPosition.CenterScreen;
         }
 
         private void UpdateBug_Load(object sender, EventArgs e)

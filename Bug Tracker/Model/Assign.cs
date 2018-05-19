@@ -9,7 +9,7 @@ namespace Bug_Tracker.Model
     /// <summary>
     /// Model to assign task for programmer
     /// </summary>
-    class Assign
+    public class Assign
     {
         public int? AssignId { get; set; }
         public int AssignBy { get; set; }

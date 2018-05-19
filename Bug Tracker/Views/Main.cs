@@ -89,7 +89,7 @@ namespace Bug_Tracker.Views
 
         private void StatusBarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            statusStrip.Visible = statusBarToolStripMenuItem.Checked;
+           
         }
 
         private void CascadeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -385,6 +385,17 @@ namespace Bug_Tracker.Views
         private void link_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start(link.Text);
+        }
+
+        private void logoutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Dispose();
+            new Login().Show();
+        }
+
+        private void aboutUsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new AboutUs().Show();
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Bug_Tracker.Model
     /// <summary>
     /// Model to save about code fixer
     /// </summary>
-    class Fixer
+    public class Fixer
     {
         public int FixerId { get; set; }
         public int FixedBy { get; set; }

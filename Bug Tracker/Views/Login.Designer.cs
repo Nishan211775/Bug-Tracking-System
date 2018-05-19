@@ -52,7 +52,7 @@
             this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button2.ForeColor = System.Drawing.SystemColors.Window;
-            this.button2.Location = new System.Drawing.Point(494, 503);
+            this.button2.Location = new System.Drawing.Point(478, 503);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(148, 33);
             this.button2.TabIndex = 19;
@@ -66,7 +66,7 @@
             this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.SystemColors.Window;
-            this.button1.Location = new System.Drawing.Point(286, 503);
+            this.button1.Location = new System.Drawing.Point(270, 503);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(138, 33);
             this.button1.TabIndex = 18;
@@ -190,6 +190,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(922, 592);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);

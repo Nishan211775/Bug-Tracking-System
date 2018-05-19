@@ -17,6 +17,7 @@ namespace Bug_Tracker.Views
         public TesterDashboard()
         {
             InitializeComponent();
+            this.StartPosition = FormStartPosition.CenterScreen;
 
             panel1.AutoScroll = false;
             panel1.HorizontalScroll.Enabled = false;

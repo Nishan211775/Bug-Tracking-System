@@ -22,7 +22,7 @@ namespace Bug_Tracker.Views
         {
             InitializeComponent();
             button4.Hide();
-            
+            this.StartPosition = FormStartPosition.CenterScreen;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -198,6 +198,11 @@ namespace Bug_Tracker.Views
             }
 
             
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            this.Dispose();
         }
     }
 }

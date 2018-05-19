@@ -17,6 +17,7 @@ namespace Bug_Tracker.Views
         public BugStatus()
         {
             InitializeComponent();
+            this.StartPosition = FormStartPosition.CenterScreen;
         }
 
         private void BugStatus_Load(object sender, EventArgs e)

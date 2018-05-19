@@ -22,6 +22,7 @@ namespace Bug_Tracker.Views
             InitializeComponent();
             GetAllProgrammers();
             btnAdd.Visible = false;
+            this.StartPosition = FormStartPosition.CenterScreen;
         }
 
         private void button1_Click(object sender, EventArgs e)

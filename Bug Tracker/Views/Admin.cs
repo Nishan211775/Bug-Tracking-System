@@ -16,11 +16,13 @@ namespace Bug_Tracker.Views
         public Admin()
         {
             InitializeComponent();
+            txtPassword.PasswordChar = '*';
+            this.StartPosition = FormStartPosition.CenterScreen;
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            this.Dispose();
             new AdminRegister().Show();
         }
 
@@ -47,6 +49,11 @@ namespace Bug_Tracker.Views
                     MessageBox.Show("Either username or password is wrong");
                 }
             }
+        }
+
+        private void Admin_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

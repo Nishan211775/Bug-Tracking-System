@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace Bug_Tracker.DAO
 {
-    class BugDAO : GenericDAO<Bug>
+    public class BugDAO : GenericDAO<Bug>
     {
 
-        private SqlConnection conn = new DBConnection().GetConnection();
+        public SqlConnection conn = new DBConnection().GetConnection();
 
         /// <summary>
         /// used to delete bugs
