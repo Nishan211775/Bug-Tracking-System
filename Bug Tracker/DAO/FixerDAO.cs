@@ -60,5 +60,47 @@ namespace Bug_Tracker.DAO
         {
             throw new NotImplementedException();
         }
-    }
+        /// <summary>
+        /// returns a name of bug fixer
+        /// </summary>
+        /// <returns></returns>
+        public List<Fixer> GetBugFixers()
+        {
+            conn.Open();
+            List<Fixer> list = new List<Fixer>();
+            Fixer fixer = null;
+            Programmer programmer = null;
+
+            try
+            {
+                SqlCommand sql = new SqlCommand(null, conn);
+                sql.CommandText = "SELECT f.bug_id, f.fixed_date, p.full_name FROM tbl_programmer p JOIN tbl_fixer f ON p.programmer_id = f.fixed_by;";
+                sql.Prepare();
+
+                using (SqlDataReader reader = sql.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        fixer = new Fixer();
+                        programmer = new Programmer();
+
+                        fixer.BugId = Convert.ToInt32(reader["bug_id"]);
+                        fixer.FixedDate = Convert.ToDateTime(reader["fixed_date"]);
+                        programmer.FullName = reader["full_name"].ToString();
+
+                        fixer.programmer = programmer;
+
+                        list.Add(fixer);
+                    }
+                }
+
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return list;
+        }
+     }
 }

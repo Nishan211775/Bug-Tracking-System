@@ -243,5 +243,10 @@ namespace Bug_Tracker.Views
             listBox1.Items.Clear();
             GetAllProgrammer();
         }
+
+        private void bugStatusToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new BugStatus().Show();
+        }
     }
 }
