@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Bug_Tracker.Model;
 
 namespace Bug_Tracker.DAO.Tests
 {
@@ -25,6 +26,29 @@ namespace Bug_Tracker.DAO.Tests
             }
 
             Assert.AreEqual(2010, res);
+        }
+
+        [TestMethod()]
+        public void CreateAccountTest()
+        {
+            ProgrammerDAO programmerDAO = new ProgrammerDAO();
+            Programmer programmer = new Programmer
+            {
+                FullName = "Nishan Dhungana",
+                Username = "hello",
+                Password = "12345"
+            };
+
+            try
+            {
+                Assert.AreEqual(, programmerDAO.Insert(programmer));
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
         }
     }
 }

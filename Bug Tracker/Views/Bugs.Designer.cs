@@ -40,7 +40,6 @@ namespace Bug_Tracker.Views
             this.label1 = new System.Windows.Forms.Label();
             this.panelAssigned = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.panelBugs.SuspendLayout();
             this.panelAssigned.SuspendLayout();
             this.SuspendLayout();
@@ -69,7 +68,6 @@ namespace Bug_Tracker.Views
             // panelAssigned
             // 
             this.panelAssigned.BackColor = System.Drawing.SystemColors.Window;
-            this.panelAssigned.Controls.Add(this.label3);
             this.panelAssigned.Controls.Add(this.label2);
             this.panelAssigned.ForeColor = System.Drawing.SystemColors.Window;
             this.panelAssigned.Location = new System.Drawing.Point(569, 1);
@@ -87,17 +85,6 @@ namespace Bug_Tracker.Views
             this.label2.Size = new System.Drawing.Size(217, 25);
             this.label2.TabIndex = 1;
             this.label2.Text = "Assigned work to you";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.label3.Location = new System.Drawing.Point(99, 129);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(371, 24);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Hurrey! there is no any work assigned to yo";
             // 
             // Bugs
             // 
@@ -123,7 +110,6 @@ namespace Bug_Tracker.Views
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panelAssigned;
         private System.Windows.Forms.Label label2;
-        private Label label3;
 
 
         //private void loopPanel(List<Bug> list)

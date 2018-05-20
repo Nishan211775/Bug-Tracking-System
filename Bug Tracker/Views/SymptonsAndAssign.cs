@@ -21,7 +21,21 @@ namespace Bug_Tracker.Views
         public SymptonsAndAssign()
         {
             InitializeComponent();
-            button4.Hide();
+            //hiding buttons only for programmer
+            if (!Program.isTester)
+            {
+                //textBox1.Enabled = false;
+                //textBox2.Enabled = false;
+
+                button1.Hide();
+                button2.Hide();
+                label3.Hide();
+                comboBox1.Hide();
+                label4.Hide();
+                textBox3.Hide();
+                textBox1.Hide();
+                button4.Hide();
+            }
             this.StartPosition = FormStartPosition.CenterScreen;
         }
 
